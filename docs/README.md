@@ -31,6 +31,18 @@ Welcome to the Anie AI documentation! This guide will help you understand the ar
    - Component patterns
    - Integration with services
 
+6. **[Troubleshooting Guide](./TROUBLESHOOTING.md)**
+   - Common issues and solutions
+   - Installation problems
+   - Runtime errors
+   - Performance tips
+
+7. **[Security Guide](./SECURITY.md)**
+   - Current vulnerabilities
+   - Security best practices
+   - API key management
+   - Monitoring and updates
+
 ## 🚀 Quick Start
 
 ### Understanding the Architecture
