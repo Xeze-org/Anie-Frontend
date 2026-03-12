@@ -1,0 +1,907 @@
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+.m-chat {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+.m-loading {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.spin {
+    animation: mSpin 1s linear infinite;
+}
+
+@keyframes mSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Top Nav ─────────────────────────────────────────────────────────────── */
+.m-topnav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    padding-top: max(12px, env(safe-area-inset-top));
+    background: rgba(14, 14, 24, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+.m-nav-center {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.m-nav-icon {
+    color: #818cf8;
+}
+
+.m-nav-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.m-nav-btn:active {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0.96);
+}
+
+.m-nav-btn-active {
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.m-api-dot {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    color: #22c55e;
+    background: rgba(14, 14, 24, 0.9);
+    border-radius: 50%;
+}
+
+/* ── Messages ────────────────────────────────────────────────────────────── */
+.m-messages {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 14px 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.m-messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── Empty State ─────────────────────────────────────────────────────────── */
+.m-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 24px;
+    gap: 12px;
+}
+
+.m-empty-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--bg-tertiary);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #818cf8;
+    border: 1px solid rgba(129, 140, 248, 0.25);
+    margin-bottom: 8px;
+}
+
+.m-empty h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.m-empty p {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.m-suggestions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 320px;
+    margin-top: 12px;
+}
+
+.m-suggestions button {
+    padding: 13px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    color: var(--text-secondary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.m-suggestions button:active {
+    background: rgba(129, 140, 248, 0.12);
+    border-color: rgba(129, 140, 248, 0.3);
+    transform: scale(0.98);
+}
+
+/* ── Message Bubbles ─────────────────────────────────────────────────────── */
+.m-message {
+    display: flex;
+    gap: 10px;
+    animation: mFadeUp 0.3s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes mFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.m-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.m-message.user .m-avatar {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+}
+
+.m-message.assistant .m-avatar {
+    background: var(--bg-tertiary);
+    color: #818cf8;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.m-bubble-wrap {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.m-role {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.m-time {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.m-bubble {
+    background: var(--bg-message-ai);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 4px 14px 14px 14px;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    overflow-x: auto;
+}
+
+.m-message.user .m-bubble {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 14px 4px 14px 14px;
+    color: white;
+}
+
+/* Typing indicator */
+.m-typing {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 14px;
+}
+
+.m-typing .dot {
+    width: 7px;
+    height: 7px;
+    background: #818cf8;
+    border-radius: 50%;
+    animation: mPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes mPulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Markdown inside bubbles */
+.m-bubble h1,
+.m-bubble h2,
+.m-bubble h3 {
+    margin: 0.75em 0 0.35em;
+    font-weight: 700;
+    font-size: 1em;
+}
+
+.m-bubble p {
+    margin-bottom: 0.6em;
+}
+
+.m-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.m-bubble ul,
+.m-bubble ol {
+    margin: 0.5em 0;
+    padding-left: 1.25em;
+}
+
+.m-bubble code {
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    background: rgba(0, 0, 0, 0.25);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+}
+
+.m-bubble pre {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 12px;
+    overflow-x: auto;
+    margin: 0.75em 0;
+    font-size: 0.8em;
+}
+
+.m-bubble blockquote {
+    border-left: 3px solid #818cf8;
+    padding: 0.5em 0.75em;
+    margin: 0.75em 0;
+    background: rgba(129, 140, 248, 0.07);
+    border-radius: 0 8px 8px 0;
+}
+
+.m-bubble table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8em;
+    margin: 0.75em 0;
+    display: block;
+    overflow-x: auto;
+}
+
+.m-bubble th,
+.m-bubble td {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 7px 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.m-bubble th {
+    background: rgba(129, 140, 248, 0.15);
+    font-weight: 700;
+}
+
+/* ── Input Bar ───────────────────────────────────────────────────────────── */
+.m-input-bar {
+    flex-shrink: 0;
+    padding: 10px 14px;
+    padding-bottom: max(14px, env(safe-area-inset-bottom));
+    background: rgba(14, 14, 24, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+}
+
+.m-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.m-plus-btn {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.m-plus-btn:active,
+.m-plus-active {
+    background: rgba(129, 140, 248, 0.2);
+    border-color: rgba(129, 140, 248, 0.5);
+    color: #818cf8;
+}
+
+.m-textarea-wrap {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease;
+}
+
+.m-textarea-wrap:focus-within {
+    border-color: rgba(129, 140, 248, 0.5);
+}
+
+.m-textarea-wrap textarea {
+    width: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    resize: none;
+    line-height: 1.5;
+    max-height: 120px;
+}
+
+.m-textarea-wrap textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.m-clear-btn {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.m-clear-btn:active {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.m-send-btn {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.m-send-btn:active:not(:disabled) {
+    transform: scale(0.94);
+}
+
+.m-send-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* ── Bottom Sheet ────────────────────────────────────────────────────────── */
+.m-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 50;
+    animation: mFadeIn 0.2s ease;
+}
+
+@keyframes mFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.m-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(14, 14, 24, 0.98);
+    border-top: 1px solid rgba(129, 140, 248, 0.25);
+    border-radius: 24px 24px 0 0;
+    z-index: 60;
+    max-height: 85dvh;
+    display: flex;
+    flex-direction: column;
+    animation: mSlideUp 0.28s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    box-shadow: 0 -12px 60px rgba(0, 0, 0, 0.7), 0 0 80px rgba(99, 102, 241, 0.1);
+}
+
+@keyframes mSlideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.m-sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 12px auto 0;
+    flex-shrink: 0;
+}
+
+.m-sheet-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.m-sheet-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+}
+
+.m-sheet-title {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.m-sheet-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.07);
+    border: none;
+    border-radius: 9px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.m-sheet-close:active {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.m-back-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.m-back-icon:active {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Tools Menu (inside sheet) ───────────────────────────────────────────── */
+.m-tool-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-primary);
+}
+
+.m-tool-item:active {
+    background: rgba(129, 140, 248, 0.1);
+}
+
+.m-tool-icon {
+    width: 46px;
+    height: 46px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+    border: 1px solid rgba(129, 140, 248, 0.3);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #818cf8;
+    flex-shrink: 0;
+}
+
+.m-tool-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.m-tool-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.m-tool-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.m-tool-arrow {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+/* ── Subject Step ────────────────────────────────────────────────────────── */
+.m-subject-body {
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.m-subject-hint {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.m-subject-input {
+    width: 100%;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.m-subject-input::placeholder {
+    color: var(--text-muted);
+}
+
+.m-subject-input:focus {
+    border-color: rgba(129, 140, 248, 0.5);
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.m-next-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 24px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.m-next-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.m-next-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ── Marks Step ──────────────────────────────────────────────────────────── */
+.m-marks-hint {
+    padding: 10px 18px 0;
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.m-marks-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 18px 16px;
+}
+
+.m-marks-scroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+.m-marks-scroll::-webkit-scrollbar-thumb {
+    background: rgba(129, 140, 248, 0.25);
+    border-radius: 2px;
+}
+
+.m-section-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin: 14px 0 8px;
+}
+
+.m-section-label:first-child {
+    margin-top: 6px;
+}
+
+/* ── Mark Cards (stacked layout for mobile) ──────────────────────────────── */
+.m-mark-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.m-mark-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s ease;
+}
+
+.m-mark-card:focus-within {
+    border-color: rgba(129, 140, 248, 0.4);
+}
+
+.quiz-card:focus-within {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.04);
+}
+
+.assign-card:focus-within {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.03);
+}
+
+.compre-card:focus-within {
+    border-color: rgba(245, 158, 11, 0.45);
+    background: rgba(245, 158, 11, 0.04);
+}
+
+.m-mark-card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+}
+
+.quiz-card .m-mark-card-label {
+    color: #818cf8;
+}
+
+.assign-card .m-mark-card-label {
+    color: #34d399;
+}
+
+.compre-card .m-mark-card-label {
+    color: #fbbf24;
+}
+
+.m-mark-input {
+    width: 100%;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.m-mark-input::-webkit-outer-spin-button,
+.m-mark-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.m-mark-input::placeholder {
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+.m-mark-max {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Compre card full width */
+.m-compre-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+}
+
+.m-compre-card .m-mark-card-label {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+}
+
+.m-compre-input {
+    flex: 1;
+    font-size: 1.5rem;
+    padding: 6px 0;
+}
+
+.m-compre-card .m-mark-max {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+}
+
+/* ── Marks Footer ────────────────────────────────────────────────────────── */
+.m-marks-footer {
+    padding: 12px 18px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.m-calc-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 16px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.m-calc-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.m-calc-btn:active:not(:disabled) {
+    transform: scale(0.97);
+}
+
+.m-calc-btn:active:not(:disabled)::before {
+    opacity: 1;
+}
+
+.m-calc-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
