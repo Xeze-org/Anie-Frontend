@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { AnalysisHistoryRepository, type AgreementHistoryItem, type ResumeHistoryItem } from '../repositories/AnalysisHistoryRepository';
 import type { AnalysisResult, ResumeAnalysisResult } from '../features/job-analyzer/types';
 
