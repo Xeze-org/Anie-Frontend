@@ -1,92 +1,87 @@
-# BITS-CS Frontend
+# Anie AI — Frontend
 
-Modern React chat interface with AI-powered grade calculations and academic advising.
+React + TypeScript frontend for **Anie AI** — a chat interface powered by Gemini with a built-in Job Analyzer tool.
 
-## 🐳 Docker Deployment
+---
 
-### Using Pre-built Image
+## How it works
 
-```bash
-docker pull ghcr.io/xeze-org/anie-ai/frontend:v1.1.0
-docker run -p 3000:80 ghcr.io/xeze-org/anie-ai/frontend:v1.1.0
+```mermaid
+flowchart TD
+    A([User opens app]) --> B{Device type?}
+    B -- Desktop --> C["Route: /chat"]
+    B -- Mobile --> D["Route: /chat-mobile"]
+
+    C & D --> E{API mode?}
+    E -- Server --> F["Backend API"]
+    E -- Own key --> G["Gemini API direct"]
+
+    F & G --> H[AI Response]
+    H --> I["Rendered in chat - Markdown, LaTeX, Code"]
+
+    A --> J["Route: /job-analyzer"]
+    J --> K[Agree to terms]
+    K --> L[Upload Resume]
+    L --> M["AI Analysis via Gemini"]
 ```
 
-### Building from Source
+---
 
-```bash
-docker build -t xeze-frontend .
-docker run -p 3000:80 xeze-frontend
-```
-
-## 🔧 Local Development
-
-### Setup
+## Quick start
 
 ```bash
 npm install
+npm run dev
+# → http://localhost:5173
 ```
 
-### Environment
-
-Edit `.env`:
+Create a `.env` file:
 
 ```env
-# For development (connect to local backend)
+# development
 VITE_API_URL=http://localhost:8080/api/chat
 
-# For production (uses nginx reverse proxy)
+# production (nginx reverse proxy)
 # VITE_API_URL=/api/chat
 ```
 
-### Run
+---
 
-```bash
-npm run dev
-```
+## Features
 
-Access: http://localhost:5173
+| Feature | Details |
+|---|---|
+| Chat | Markdown, LaTeX (KaTeX), code highlighting |
+| Responsive | Separate optimised views for desktop & mobile |
+| Job Analyzer | Upload resume → AI-powered job fit analysis |
+| Own API key | Bring your own Gemini key via Settings |
+| Local history | Chat history stored in IndexedDB — never leaves browser |
+| PWA | Installable as a progressive web app |
 
-## ✨ Features
+---
 
-| Feature | Description |
-|---------|-------------|
-| 🎨 Beautiful UI | Dark theme with ambient lighting effects |
-| 📐 LaTeX Support | KaTeX rendering for math equations |
-| 📝 Markdown | Full markdown in chat responses |
-| 💾 Local Storage | Chat history in IndexedDB (browser) |
-| ⚙️ Custom API | Use your own Gemini API key |
-| 🔄 Model Selection | Choose from multiple Gemini models |
-
-## 📡 Custom API Mode
-
-Users can bring their own Gemini API key:
-
-1. Go to **Settings** (gear icon)
-2. Toggle "Use my own API key"
-3. Enter API key and select model
-4. Save → Chat directly with Gemini
-
-## 📁 Project Structure
+## Folder structure
 
 ```
-frontend/
-├── src/
-│   ├── pages/           # Chat, Home, Settings
-│   ├── components/      # Reusable components
-│   ├── lib/             # Utilities (db, settings, gemini)
-│   └── App.tsx          # Routes
-├── Dockerfile           # Container build
-├── nginx.conf           # Production server
-└── .env                 # Environment
+src/
+├── pages/          # Chat, ChatMobile, Home, Settings
+├── components/     # DeviceGuard, MessageContent
+├── features/
+│   └── job-analyzer/   # Resume upload & analysis flow
+└── lib/            # firebase, gemini, db, settings
 ```
 
-## 🔒 Security
+---
 
-- No secrets in client bundle
-- API key stored locally only (localStorage)
-- Chat history never leaves browser
-- HTTPS enforced in production
+## Using your own Gemini API key
 
-## 📝 License
+1. Open **Settings** (gear icon)
+2. Enable "Use my own API key"
+3. Paste your key and pick a model
+4. Save — chat goes directly to Gemini
 
-GPL-3.0 - See [LICENSE](../LICENSE)
+---
+
+## License
+
+GPL-3.0
