@@ -34,12 +34,13 @@ graph TB
     C --> E
     D --> E
     
-    style A fill:#61dafb
-    style B fill:#61dafb
-    style C fill:#e74c3c
-    style D fill:#e74c3c
-    style E fill:#95a5a6
-    style F fill:#95a5a6
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style C fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style D fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style E fill:#94a3b8,stroke:#475569,stroke-width:2px,color:#0f172a
+    style F fill:#94a3b8,stroke:#475569,stroke-width:2px,color:#0f172a
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 **Benefits**:

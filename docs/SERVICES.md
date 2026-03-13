@@ -31,12 +31,13 @@ graph TB
     A --> B
     A --> C
     
-    style A fill:#3498db
-    style B fill:#2ecc71
-    style C fill:#2ecc71
-    style D fill:#2ecc71
-    style E fill:#f39c12
-    style F fill:#f39c12
+    style A fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#eff6ff
+    style B fill:#22c55e,stroke:#15803d,stroke-width:2px,color:#052e16
+    style C fill:#22c55e,stroke:#15803d,stroke-width:2px,color:#052e16
+    style D fill:#22c55e,stroke:#15803d,stroke-width:2px,color:#052e16
+    style E fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style F fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 ## Available Services
