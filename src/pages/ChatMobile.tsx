@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
 import {
-    Send, User, Bot, Loader2, Trash2, ArrowLeft, Settings,
-    CheckCircle, Plus, X, Calculator, ChevronRight
+    Send, User, Bot, Loader2, Trash2, ArrowLeft,
+    Plus, X, Calculator, ChevronRight
 } from 'lucide-react'
 import { MessageContent } from '../components/MessageContent'
 import { type ChatMessage, getAllMessages, addMessage, clearAllMessages } from '../lib/db'
-import { getSettings, type AppSettings } from '../lib/settings'
-import { sendMessageToGemini } from '../lib/gemini'
 import './ChatMobile.css'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -19,7 +16,6 @@ export function ChatMobile() {
     const [input, setInput] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [isInitialized, setIsInitialized] = useState(false)
-    const [settings, setSettings] = useState<AppSettings | null>(null)
     const messagesEndRef = useRef<HTMLDivElement>(null)
     const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -35,7 +31,6 @@ export function ChatMobile() {
         const loadFromDB = async () => {
             const storedMessages = await getAllMessages()
             setMessages(storedMessages)
-            setSettings(getSettings())
             setIsInitialized(true)
         }
         loadFromDB()
@@ -91,21 +86,15 @@ export function ChatMobile() {
                 content: m.content
             }))
 
-            let aiResponse: string
-
-            if (settings?.useCustomApi && settings.apiKey) {
-                aiResponse = await sendMessageToGemini(settings.apiKey, settings.model, conversationHistory)
-            } else {
-                const apiUrl = import.meta.env.VITE_API_URL
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ history: conversationHistory })
-                })
-                const data = await response.json()
-                if (!response.ok) throw new Error(data.error || `API error (${response.status})`)
-                aiResponse = data.response || data.message || JSON.stringify(data)
-            }
+            const apiUrl = import.meta.env.VITE_API_URL
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ history: conversationHistory })
+            })
+            const data = await response.json()
+            if (!response.ok) throw new Error(data.error || `API error (${response.status})`)
+            const aiResponse = data.response || data.message || JSON.stringify(data)
 
             const assistantMessage: ChatMessage = {
                 id: (Date.now() + 1).toString(),
@@ -183,21 +172,10 @@ export function ChatMobile() {
 
             {/* ── Top nav ──────────────────────────────────────────────────────── */}
             <header className="m-topnav">
-                <Link to="/" className="m-nav-btn"><ArrowLeft size={20} /></Link>
                 <div className="m-nav-center">
                     <Bot size={18} className="m-nav-icon" />
                     <span>Anie</span>
                 </div>
-                <Link
-                    to="/settings"
-                    className={`m-nav-btn ${settings?.useCustomApi && settings?.apiKey ? 'm-nav-btn-active' : ''}`}
-                    title={settings?.useCustomApi && settings?.apiKey ? '✓ API Configured' : 'Using Server API'}
-                >
-                    <Settings size={20} />
-                    {settings?.useCustomApi && settings?.apiKey && (
-                        <CheckCircle size={10} className="m-api-dot" />
-                    )}
-                </Link>
             </header>
 
             {/* ── Messages ──────────────────────────────────────────────────────── */}

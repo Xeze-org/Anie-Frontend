@@ -3,8 +3,8 @@
   --bg-primary: #0a0a0f;
   --bg-secondary: #12121a;
   --bg-tertiary: #1a1a25;
-  --bg-message-user: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  --bg-message-ai: #1e1e2e;
+  --bg-message-user: transparent;
+  --bg-message-ai: transparent;
   
   --text-primary: #f0f0f5;
   --text-secondary: #9ca3af;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Mail, Github, Sparkles, ArrowRight, Zap, FileText } from 'lucide-react'
+import { Mail, Github, Sparkles, ArrowRight, Zap } from 'lucide-react'
 import { isMobileDevice } from '../lib/device'
 import './Home.css'
 
@@ -37,10 +37,6 @@ export function Home() {
             <Zap size={20} />
             Calculate Grades
           </Link>
-          <Link to="/job-analyzer" className="btn btn-secondary">
-            <FileText size={20} />
-            Analyze Job Document
-          </Link>
         </div>
 
       </header>
@@ -54,7 +50,6 @@ export function Home() {
         </div>
 
         <div className="projects-grid">
-
 
           <div className="project-card project-calculator">
             <div className="project-glow" />
@@ -78,27 +73,6 @@ export function Home() {
             </div>
           </div>
 
-          <div className="project-card project-analyzer">
-            <div className="project-glow" />
-            <div className="project-content">
-              <div className="project-icon-wrapper">
-                <FileText size={32} />
-              </div>
-              <div className="project-info">
-                <h3>Job Document Analyzer</h3>
-                <p>Analyze job descriptions and contracts. Detect scams, risky clauses, and optimize resumes.</p>
-                <div className="project-tags">
-                  <span className="tag">Scam Detection</span>
-                  <span className="tag">Contract Analysis</span>
-                  <span className="tag">Resume Check</span>
-                </div>
-              </div>
-              <Link to="/job-analyzer" className="project-cta">
-                <span>Analyze Docs</span>
-                <ArrowRight size={20} />
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 
