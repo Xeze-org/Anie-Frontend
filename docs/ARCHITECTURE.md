@@ -46,14 +46,15 @@ graph TB
     C --> H
     E --> F
     
-    style A fill:#61dafb
-    style B fill:#61dafb
-    style C fill:#f39c12
-    style D fill:#f39c12
-    style E fill:#e74c3c
-    style F fill:#95a5a6
-    style G fill:#3498db
-    style H fill:#3498db
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style C fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style D fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style E fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style F fill:#94a3b8,stroke:#475569,stroke-width:2px,color:#0f172a
+    style G fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#eff6ff
+    style H fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#eff6ff
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 ## Layer Breakdown
@@ -84,14 +85,15 @@ graph LR
     E[useGemini] --> F[GeminiService]
     G[useJobAnalyzer] --> H[JobAnalyzerService]
     
-    style A fill:#61dafb
-    style C fill:#61dafb
-    style E fill:#61dafb
-    style G fill:#61dafb
-    style B fill:#e74c3c
-    style D fill:#f39c12
-    style F fill:#f39c12
-    style H fill:#f39c12
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style C fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style E fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style G fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style D fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style F fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style H fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 **Available Hooks**:

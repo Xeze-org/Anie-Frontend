@@ -55,12 +55,13 @@ graph TB
     C --> E[External APIs]
     D --> F[IndexedDB/LocalStorage]
     
-    style A fill:#61dafb
-    style B fill:#9b59b6
-    style C fill:#f39c12
-    style D fill:#e74c3c
-    style E fill:#3498db
-    style F fill:#95a5a6
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style C fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style D fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style E fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#eff6ff
+    style F fill:#94a3b8,stroke:#475569,stroke-width:2px,color:#0f172a
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 ### Key Concepts

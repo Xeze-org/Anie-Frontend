@@ -24,12 +24,13 @@ graph TB
     B --> E
     B --> F
     
-    style A fill:#61dafb
-    style B fill:#9b59b6
-    style C fill:#61dafb
-    style D fill:#61dafb
-    style E fill:#f39c12
-    style F fill:#e74c3c
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style C fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style D fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style E fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style F fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 ## Component Pattern

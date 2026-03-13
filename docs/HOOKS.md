@@ -43,13 +43,18 @@ graph TB
     F --> J
     G --> K
     
-    style A fill:#61dafb
-    style B fill:#61dafb
-    style C fill:#61dafb
-    style D fill:#9b59b6
-    style E fill:#9b59b6
-    style F fill:#9b59b6
-    style G fill:#9b59b6
+    style A fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style B fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style C fill:#22d3ee,stroke:#0891b2,stroke-width:2px,color:#042f2e
+    style D fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style E fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style F fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style G fill:#7c3aed,stroke:#5b21b6,stroke-width:2px,color:#f5f3ff
+    style H fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#ffffff
+    style I fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style J fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    style K fill:#f59e0b,stroke:#b45309,stroke-width:2px,color:#1f1300
+    linkStyle default stroke:#cbd5e1,stroke-width:2px
 ```
 
 ## Available Hooks
