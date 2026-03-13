@@ -18,7 +18,7 @@ export function DesktopGuard({ children }: { children: React.ReactNode }) {
  */
 export function MobileGuard({ children }: { children: React.ReactNode }) {
     if (!isMobileDevice()) {
-        return <Navigate to="/chat" replace />
+        return <Navigate to="/" replace />
     }
     return <>{children}</>
 }

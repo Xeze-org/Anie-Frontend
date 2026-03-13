@@ -1,10 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { Send, User, Bot, Loader2, Trash2, ArrowLeft, Settings, CheckCircle, Plus, X, Calculator, ChevronRight } from 'lucide-react'
+import { Send, User, Bot, Loader2, Trash2, Plus, X, Calculator, ChevronRight } from 'lucide-react'
 import { MessageContent } from '../components/MessageContent'
 import { type ChatMessage, getAllMessages, addMessage, clearAllMessages } from '../lib/db'
-import { getSettings, type AppSettings } from '../lib/settings'
-import { sendMessageToGemini } from '../lib/gemini'
 import './Chat.css'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -16,7 +13,6 @@ export function Chat() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isInitialized, setIsInitialized] = useState(false)
-  const [settings, setSettings] = useState<AppSettings | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -32,7 +28,6 @@ export function Chat() {
     const loadFromDB = async () => {
       const storedMessages = await getAllMessages()
       setMessages(storedMessages)
-      setSettings(getSettings())
       setIsInitialized(true)
     }
     loadFromDB()
@@ -97,26 +92,16 @@ export function Chat() {
         content: m.content
       }))
 
-      let aiResponse: string
+      const apiUrl = import.meta.env.VITE_API_URL
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ history: conversationHistory })
+      })
 
-      if (settings?.useCustomApi && settings.apiKey) {
-        aiResponse = await sendMessageToGemini(
-          settings.apiKey,
-          settings.model,
-          conversationHistory
-        )
-      } else {
-        const apiUrl = import.meta.env.VITE_API_URL
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ history: conversationHistory })
-        })
-
-        const data = await response.json()
-        if (!response.ok) throw new Error(data.error || `API error (${response.status})`)
-        aiResponse = data.response || data.message || JSON.stringify(data)
-      }
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || `API error (${response.status})`)
+      const aiResponse = data.response || data.message || JSON.stringify(data)
 
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
@@ -217,16 +202,7 @@ export function Chat() {
         <div className="orb orb-3" />
       </div>
 
-      {/* Floating nav buttons */}
-      <Link to="/" className="floating-home-btn"><ArrowLeft size={18} /></Link>
-      <Link
-        to="/settings"
-        className={`floating-settings-btn ${settings?.useCustomApi && settings?.apiKey ? 'custom-api-active' : ''}`}
-        title={settings?.useCustomApi && settings?.apiKey ? '✓ API Configured' : 'Using Server API'}
-      >
-        <Settings size={18} />
-        {settings?.useCustomApi && settings?.apiKey && <CheckCircle size={12} className="api-check-icon" />}
-      </Link>
+
 
       {/* Messages */}
       <main className="messages-container">

@@ -1,5 +1,9 @@
 import { ApiService } from './ApiService';
-import { ChatHistoryMessage } from './GeminiService';
+
+export interface ChatHistoryMessage {
+    role: 'user' | 'assistant';
+    content: string;
+}
 
 interface ChatApiResponse {
     response?: string;
